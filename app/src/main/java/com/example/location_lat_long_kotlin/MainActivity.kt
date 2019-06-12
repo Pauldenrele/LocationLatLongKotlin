@@ -7,10 +7,7 @@ import android.os.Bundle
 import android.os.Looper
 import android.support.v4.app.ActivityCompat
 import android.view.View
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -55,6 +52,23 @@ class MainActivity : AppCompatActivity() {
 
                 }
 
+                btn_Stop.setOnClickListener {
+                    View.OnClickListener {
+                        if (ActivityCompat.checkSelfPermission(this@MainActivity ,android.Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED
+                            && ActivityCompat.checkSelfPermission(this@MainActivity ,android.Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED
+                        ){
+                            ActivityCompat.requestPermissions(this@MainActivity , arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION) , REQUEST_CODE)
+                            return@OnClickListener
+                        }
+                        fusedLocationProviderClient.removeLocationUpdates( locationCallback)
+
+                        btn_start.isEnabled = !btn_start.isEnabled
+                        btn_Stop.isEnabled = !btn_Stop.isEnabled
+
+
+                    }
+                }
+
 
 
 
@@ -68,9 +82,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun buildLocationCallback() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+       locationCallback = object :LocationCallback(){
+           override fun onLocationResult(p0: LocationResult?) {
+
+               //get last location
+              var location = p0!!.locations.get(p0!!.locations.size -1)
+
+               txt_location.text = location.latitude.toString() + "/" + location.longitude.toString()
+
+           }
+       }
+
     }
 
     private fun buildLocationRequest() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 }
