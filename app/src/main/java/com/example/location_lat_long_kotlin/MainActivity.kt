@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Looper
 import android.support.v4.app.ActivityCompat
 import android.view.View
+import android.widget.Toast
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -23,6 +24,30 @@ class MainActivity : AppCompatActivity() {
 
         //Lines to check permissions
         val REQUEST_CODE =1000
+
+
+        fun onRequestPermissionsResult(
+            requestCode: Int,
+            permissions: Array<out String>,
+            grantResults: IntArray
+        ) {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+            when(requestCode){
+                REQUEST_CODE ->{
+
+                    if(grantResults.size > 0 ){
+                        if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                            Toast.makeText(this@MainActivity , "Permission granted" , Toast.LENGTH_SHORT).show()
+                    }
+
+                    else{
+                        Toast.makeText(this@MainActivity , "Permission denied" , Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            }
+        }
 
         //If this activity is requesting for the location do this 👇
         if(ActivityCompat.shouldShowRequestPermissionRationale(this , android.Manifest.permission.ACCESS_FINE_LOCATION))

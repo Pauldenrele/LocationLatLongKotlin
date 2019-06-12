@@ -31,6 +31,7 @@
        android:layout_gravity="center_horizontal"
                android:text="STOP"
 android:id="@+id/btn_Stop"
+               android:enabled="false"
        />
 
    </LinearLayout>
