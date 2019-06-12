@@ -13,6 +13,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    /**
+     * Developed by Adenrele Paul
+     *
+     * 12/06/2019
+     */
+
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var locationRequest: LocationRequest
     lateinit var locationCallback: LocationCallback
