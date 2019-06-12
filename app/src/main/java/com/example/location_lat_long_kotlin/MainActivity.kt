@@ -95,7 +95,14 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun buildLocationRequest() {
+    @SuppressLint("RestrictedApi")
+    private fun buildLocationRequest()    {
+        locationRequest = LocationRequest()
+        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        locationRequest.interval = 5000
+        locationRequest.fastestInterval = 3000
+        locationRequest.smallestDisplacement = 10f
+
 
     }
 }
